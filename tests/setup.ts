@@ -23,6 +23,8 @@ Object.defineProperty(window, 'electronAPI', {
     saveRecording: jest.fn(),
     listRecordings: jest.fn().mockResolvedValue([]),
     getRecordingPath: jest.fn().mockResolvedValue(''),
+    deleteRecording: jest.fn().mockResolvedValue(undefined),
+    renameRecording: jest.fn().mockResolvedValue(undefined),
     getDesktopSources: jest.fn().mockResolvedValue([{ id: 'screen:0:0', name: 'Entire Screen' }]),
   },
 });
