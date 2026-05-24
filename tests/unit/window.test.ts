@@ -19,9 +19,9 @@ const mockLoadURL = jest.fn();
 const mockLoadFile = jest.fn();
 
 describe('WINDOW_CONFIG', () => {
-  it('deve ter width = 320 e height = 120', () => {
+  it('deve ter width = 320 e height = 320', () => {
     expect(WINDOW_CONFIG.width).toBe(320);
-    expect(WINDOW_CONFIG.height).toBe(120);
+    expect(WINDOW_CONFIG.height).toBe(320);
   });
 });
 
@@ -43,7 +43,7 @@ describe('createMainWindow', () => {
     createMainWindow();
     expect(mockBrowserWindow).toHaveBeenCalledTimes(1);
     const opts = mockBrowserWindow.mock.calls[0][0] as Record<string, unknown>;
-    expect(opts.resizable).toBe(false);
+    expect(opts.resizable).toBe(true);
     expect(opts.alwaysOnTop).toBe(true);
   });
 
@@ -67,7 +67,7 @@ describe('createMainWindow', () => {
     createMainWindow();
     const opts = mockBrowserWindow.mock.calls[0][0] as Record<string, unknown>;
     expect(opts.width).toBe(320);
-    expect(opts.height).toBe(120);
+    expect(opts.height).toBe(320);
   });
 
   it('deve chamar loadURL com ELECTRON_RENDERER_URL quando em modo dev', () => {

@@ -6,7 +6,7 @@ export interface WindowConfig {
   height: number;
 }
 
-export const WINDOW_CONFIG: WindowConfig = { width: 320, height: 120 };
+export const WINDOW_CONFIG: WindowConfig = { width: 320, height: 320 };
 
 export function createMainWindow(): BrowserWindow {
   const { width: screenWidth } = screen.getPrimaryDisplay().workAreaSize;
@@ -16,7 +16,7 @@ export function createMainWindow(): BrowserWindow {
     height: WINDOW_CONFIG.height,
     x: screenWidth - WINDOW_CONFIG.width - 16,
     y: 16,
-    resizable: false,
+    resizable: true,
     alwaysOnTop: true,
     frame: false,
     transparent: true,
