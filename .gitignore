@@ -1,0 +1,43 @@
+# Dependências
+node_modules/
+
+# Build / compilação
+dist/
+out/
+dist-test/
+
+# Electron-builder
+release/
+build/
+
+# Dados gerados em runtime
+recordings/
+
+# Cobertura de testes
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Variáveis de ambiente
+.env
+.env.*
+!.env.example
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Temporários
+*.tmp
+*.temp
+
