@@ -186,4 +186,50 @@ describe('App', () => {
     // After onended fires, playingId resets and Play button shows again
     await waitFor(() => screen.getByRole('button', { name: /reproduzir/i }));
   });
+
+  it('deve chamar deleteRecording e atualizar a lista ao deletar', async () => {
+    const recording = makeRecording('r1');
+    (window.electronAPI.listRecordings as jest.Mock)
+      .mockResolvedValueOnce([recording]) // mount
+      .mockResolvedValueOnce([]);          // após deletar
+
+    render(<App />);
+    await waitFor(() => screen.getAllByRole('listitem'));
+
+    await act(async () => {
+      await userEvent.click(screen.getByRole('button', { name: /excluir/i }));
+    });
+
+    await waitFor(() => {
+      expect(window.electronAPI.deleteRecording).toHaveBeenCalledWith('r1');
+      expect(window.electronAPI.listRecordings).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  it('deve chamar renameRecording e atualizar a lista ao renomear', async () => {
+    const recording = makeRecording('r1');
+    const renamed = { ...recording, name: 'Aula de inglês' };
+    (window.electronAPI.listRecordings as jest.Mock)
+      .mockResolvedValueOnce([recording]) // mount
+      .mockResolvedValueOnce([renamed]);   // após renomear
+
+    render(<App />);
+    await waitFor(() => screen.getAllByRole('listitem'));
+
+    await act(async () => {
+      await userEvent.click(screen.getByRole('button', { name: /renomear/i }));
+    });
+
+    const input = screen.getByRole('textbox', { name: /novo nome/i });
+    await act(async () => {
+      await userEvent.clear(input);
+      await userEvent.type(input, 'Aula de inglês');
+      await userEvent.keyboard('{Enter}');
+    });
+
+    await waitFor(() => {
+      expect(window.electronAPI.renameRecording).toHaveBeenCalledWith('r1', 'Aula de inglês');
+      expect(window.electronAPI.listRecordings).toHaveBeenCalledTimes(2);
+    });
+  });
 });
