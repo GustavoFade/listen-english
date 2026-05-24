@@ -12,6 +12,7 @@ build/
 
 # Dados gerados em runtime
 recordings/
+!src/**/recordings/
 
 # Cobertura de testes
 coverage/
